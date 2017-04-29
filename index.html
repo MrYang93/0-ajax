@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax</title>
+</head>
+
+<body>
+    <div id="name">数据没过来呢
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+    <script>
+      axios.get('https://api.github.com/users/mryang')
+        .then( res => console.log(res.data) )
+        .catch( error => console.log(error) )
+
+      axios.post('https://cnodejs.org/api/v1/accesstoken',{
+        accesstoken: '3f77acb1-d753-4393-b784-44913190e6a8'
+      }).then( res => console.log(res))
+      .catch(erro => console.log(erro) );
+
+  // fetch 方法
+    //get
+        fetch('https://api.github.com/users/mryang', {
+            method: 'GET'
+        }).then(response => response.json()).then(json => console.log(json)).catch()
+        //        参数      转换成json              参数    用转换之后的 json,    失败.catch
+    // post
+        fetch('https://cnodejs.org/api/v1/accesstoken', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            accesstoken: '3f77acb1-d753-4393-b784-44913190e6a8'
+          })
+        })
+          .then( res => res.json() )
+          .then( json => console.log(json) )
+    </script>
+
+    <!-- <script>
+    //原生
+    // var ajax = new XMLHttpRequest();
+    //
+    // ajax.onreadystatechange=function(){
+    //   console.log(ajax.readyState);
+    //   if(ajax.readyState==4 && ajax.status==200){
+    //     // console.log(ajax.responseText);
+    //     let data = JSON.parse(ajax.responseText);
+    //     console.log(data);
+    //     document.getElementById('name').innerHTML=data.login;
+    //   }
+    // }
+    //
+    // ajax.open('GET','http://api.github.com/users/mryang',true);
+    // ajax.send();
+
+    // jq
+    // $.ajax({
+    //   // type: 'GET', //不写默认就是GET请求
+    //   dataType:'jsonp',
+    //   jsonp:'callback',
+    //   url:'https://api.douban.com/v2/book/1220562',
+    //   success: function (data,status){
+    //     console.log(data,status);
+    //   }
+    // })
+
+
+    // $.ajax({
+    //   type: 'POST', //不写默认就是GET请求
+    //   data:'发数据'
+    //   url:'http://cnode.js.org/api.v1/accesstoken',
+    //   success: function (data,status){
+    //     console.log(data,status);
+    //     $('#name').html(data.loginname)
+    //     $('#name').append(`<img src='${data.avatar_url}'/>`)
+    //   }
+    // })
+
+    //   dataTyoe:'jsonp',
+    //   jsonp: 'callback'
+    // 上面这个可以解决跨域问题.但是只能解决GET
+    //跨域请求 http 协议的规定就是不同源之间不能进行资源共享.
+    //http://api.github.com:80 这一段有不同的就叫跨域
+    //一般一般后台设置 Access-Conttrol-Allow-Origin
+  </script> -->
+
+  <!-- 发送 ajax 请求的几种方式
+  原生 XMLHttpRequest()
+  jquery $.ajax({type:'POST',data:string,success:function(){}})
+  fetch  fetch('url').then( res => res.json() ).then( json => do() ).catch( err =>alert(err) )
+  axios
+  -->
+</body>
+
+</html>
